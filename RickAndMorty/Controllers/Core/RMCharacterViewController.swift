@@ -10,9 +10,7 @@ import UIKit
 /// Controller to show and search for Characters
 final class RMCharacterViewController: UIViewController {
 
-    private struct Constants {
-        static let baseURL = "https://rickandmortyapi.com/api"
-    }
+    private let characterListView = CharacterListView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,19 +18,17 @@ final class RMCharacterViewController: UIViewController {
         view.backgroundColor = .systemBackground
         title = "Characters"
         
-        let pathComponents: [String] = ["1", "2", "3", "4",]
-        
-        let request = RMRequest(endpoint: .character)
-        
-        RMService.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { result in
-            switch result {
-            case .success(let response):
-                print(response)
-                break
-            case .failure(let error):
-                print(error)
-            }
-        }
+        view.addSubview(characterListView)
+        addCharacterViewConstraints()
+    }
+    
+    private func addCharacterViewConstraints() {
+        NSLayoutConstraint.activate([
+            characterListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            characterListView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            characterListView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            characterListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
 
 }
