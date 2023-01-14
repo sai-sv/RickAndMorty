@@ -11,10 +11,12 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
     
     static let cellIndentifier = "RMCharacterCollectionViewCell"
     
+    // MARK: - Private Properties
     private let imageView: UIImageView = {
         let iv = UIImageView(frame: .zero)
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleAspectFit
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
         return iv
     }()
     
@@ -22,7 +24,7 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .label
-        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.font = .systemFont(ofSize: 18, weight: .medium)
         return label
     }()
     
@@ -30,10 +32,11 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .label
-        label.font = .systemFont(ofSize: 18, weight: .medium)
+        label.font = .systemFont(ofSize: 16, weight: .regular)
         return label
     }()
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -44,6 +47,7 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(statusLabel)
         
         addConstraints()
+        setupLayer()
     }
     
     required init?(coder: NSCoder) {
@@ -58,25 +62,12 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
         statusLabel.text = ""
     }
     
-    private func addConstraints() {
-        NSLayoutConstraint.activate([
-            nameLabel.heightAnchor.constraint(equalToConstant: 40),
-            nameLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor, constant: -3),
-            nameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 5),
-            nameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5),
-            
-            statusLabel.heightAnchor.constraint(equalToConstant: 40),
-            statusLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 5),
-            statusLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5),
-            statusLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3),
-            
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            imageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -3),
-        ])
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        setupLayer()
     }
     
+    // MARK: - Public Methods
     func configure(_ viewModel: RMCharacterCollectionViewCellViewModel) {
         nameLabel.text = viewModel.characterName
         statusLabel.text = viewModel.characterStatusText
@@ -92,4 +83,34 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
             }
         }
     }
+    
+    // MARK: - Private Methods
+    private func addConstraints() {
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            imageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -3),
+            
+            nameLabel.heightAnchor.constraint(equalToConstant: 30),
+            nameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 7),
+            nameLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor),
+            nameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -7),
+            
+            statusLabel.heightAnchor.constraint(equalToConstant: 30),
+            statusLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 7),
+            statusLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3),
+            statusLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -7)
+            
+        ])
+    }
+    
+    private func setupLayer() {
+        contentView.layer.cornerRadius = 4
+        contentView.layer.shadowColor = UIColor.label.cgColor
+        contentView.layer.shadowOffset = CGSize(width: -4, height: 4)
+        contentView.layer.shadowOpacity = 0.3
+    }
+    
+    
 }
