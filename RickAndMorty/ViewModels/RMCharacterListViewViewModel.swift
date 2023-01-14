@@ -10,10 +10,19 @@ import UIKit
 
 protocol RMCharacterListViewViewModelDelegate: AnyObject {
     func didLoadInitialCharacters()
+    func didSelectCharacter(_ character: RMCharacter)
 }
 
 final class RMCharacterListViewViewModel: NSObject {
 
+    // MARK: - Public Properties
+    weak var delegate: RMCharacterListViewViewModelDelegate?
+    
+    var shouldShowLoadMoreIndicator: Bool {
+        return apiInfo?.next != nil
+    }
+    
+    // MARK: - Private Properties
     private var characters: [RMCharacter] = [] {
         didSet {
             for character in characters {
@@ -24,10 +33,12 @@ final class RMCharacterListViewViewModel: NSObject {
             }
         }
     }
+    
+    private var apiInfo: RMGetAllCharactersResponse.Info?
+    
     private var cellViewModels: [RMCharacterCollectionViewCellViewModel] = []
     
-    weak var delegate: RMCharacterListViewViewModelDelegate?
-    
+    // MARK: - Public Methods
     func fetchCharacters() {
         let request = RMRequest(endpoint: .character)
         
@@ -37,6 +48,7 @@ final class RMCharacterListViewViewModel: NSObject {
             case .success(let response):
                 print(response)
                 self.characters = response.results
+                self.apiInfo = response.info
                 DispatchQueue.main.async {
                     self.delegate?.didLoadInitialCharacters()
                 }
@@ -46,8 +58,13 @@ final class RMCharacterListViewViewModel: NSObject {
             }
         }
     }
+    
+    func fetchAdditionalCharacters() {
+        
+    }
 }
 
+// MARK: - Collection View
 extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -58,10 +75,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterCollectionViewCell.cellIndentifier, for: indexPath) as? RMCharacterCollectionViewCell else {
             fatalError("Unsupported cell")
         }
-        
-        let viewModel = cellViewModels[indexPath.row]
-        cell.configure(viewModel)
-        
+        cell.configure(cellViewModels[indexPath.row])
         return cell
     }
     
@@ -69,5 +83,20 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         let bounds = UIScreen.main.bounds
         let width = (bounds.width - 30) / 2
         return CGSize(width: width, height: width * 1.5)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let character = characters[indexPath.row]
+        delegate?.didSelectCharacter(character)
+    }
+}
+
+// MARK: - Scroll View
+extension RMCharacterListViewViewModel: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard shouldShowLoadMoreIndicator else { return }
     }
 }

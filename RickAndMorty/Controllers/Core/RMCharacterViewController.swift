@@ -20,6 +20,8 @@ final class RMCharacterViewController: UIViewController {
         
         view.addSubview(characterListView)
         addCharacterViewConstraints()
+        
+        characterListView.delegate = self
     }
     
     private func addCharacterViewConstraints() {
@@ -31,4 +33,15 @@ final class RMCharacterViewController: UIViewController {
         ])
     }
 
+}
+
+// MARK: - RMCharacterListViewDelegate
+extension RMCharacterViewController: RMCharacterListViewDelegate {
+    func rmCharacterListView(_ characterListView: RMCharacterListView, didSelectCharacter character: RMCharacter) {
+        let viewModel = RMCharacterDetailViewViewModel(character: character)
+        let detailVC = RMCharacterDetailViewController(viewModel: viewModel)
+        detailVC.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
 }
