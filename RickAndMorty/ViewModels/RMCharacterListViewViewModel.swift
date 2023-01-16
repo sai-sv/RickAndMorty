@@ -14,7 +14,7 @@ protocol RMCharacterListViewViewModelDelegate: AnyObject {
 }
 
 final class RMCharacterListViewViewModel: NSObject {
-
+    
     // MARK: - Public Properties
     weak var delegate: RMCharacterListViewViewModelDelegate?
     
@@ -38,6 +38,8 @@ final class RMCharacterListViewViewModel: NSObject {
     
     private var cellViewModels: [RMCharacterCollectionViewCellViewModel] = []
     
+    private var isLoadingMoreCharacters: Bool = false
+    
     // MARK: - Public Methods
     func fetchCharacters() {
         let request = RMRequest(endpoint: .character)
@@ -60,7 +62,8 @@ final class RMCharacterListViewViewModel: NSObject {
     }
     
     func fetchAdditionalCharacters() {
-        
+        isLoadingMoreCharacters = true
+        // Fetch more characters...
     }
 }
 
@@ -72,7 +75,8 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterCollectionViewCell.cellIndentifier, for: indexPath) as? RMCharacterCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterCollectionViewCell.cellIndentifier,
+                                                            for: indexPath) as? RMCharacterCollectionViewCell else {
             fatalError("Unsupported cell")
         }
         cell.configure(cellViewModels[indexPath.row])
@@ -91,12 +95,44 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         let character = characters[indexPath.row]
         delegate?.didSelectCharacter(character)
     }
+    
+    // footer
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionFooter else {
+            fatalError("Unsupported")
+        }
+        guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                         withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier,
+                                                                               for: indexPath) as? RMFooterLoadingCollectionReusableView else {
+            fatalError("Unsupported")
+        }
+        footerView.startAnimating()
+        return footerView
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        guard shouldShowLoadMoreIndicator else {
+            return .zero
+        }
+        let size = CGSize(width: collectionView.frame.width, height: 100)
+        return size
+    }
 }
 
 // MARK: - Scroll View
 extension RMCharacterListViewViewModel: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard shouldShowLoadMoreIndicator else { return }
+        guard shouldShowLoadMoreIndicator, !isLoadingMoreCharacters else {
+            return
+        }
+        
+        let frameHeight = scrollView.frame.size.height
+        let contentOffset = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if contentOffset >= (contentHeight - frameHeight - 120) {
+            fetchAdditionalCharacters()
+        }
     }
 }
