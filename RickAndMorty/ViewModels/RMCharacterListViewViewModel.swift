@@ -51,7 +51,6 @@ final class RMCharacterListViewViewModel: NSObject {
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                //print(response)
                 self.characters = response.results
                 self.apiInfo = response.info
                 DispatchQueue.main.async {
@@ -65,9 +64,7 @@ final class RMCharacterListViewViewModel: NSObject {
     }
     
     func fetchAdditionalCharacters(url: URL) {
-        if isLoadingMoreCharacters {
-            return
-        }
+        guard !isLoadingMoreCharacters else { return }
         isLoadingMoreCharacters = true
         
         guard let request = RMRequest(url: url) else { return }
@@ -77,7 +74,6 @@ final class RMCharacterListViewViewModel: NSObject {
             
             switch result {
             case .success(let response):
-                //print(response)
                 let currentCount = self.characters.count
                 let additionalCount = response.results.count
                 let totalCount = currentCount + additionalCount
@@ -85,7 +81,6 @@ final class RMCharacterListViewViewModel: NSObject {
                 let indexPathsToAdd: [IndexPath] = Array(startIndex..<(startIndex + additionalCount)).compactMap {
                     IndexPath(row: $0, section: 0)
                 }
-                //print(indexPathsToAdd)
                 
                 self.characters.append(contentsOf: response.results)
                 self.apiInfo = response.info
