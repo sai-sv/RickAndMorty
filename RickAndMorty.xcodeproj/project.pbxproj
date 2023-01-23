@@ -117,8 +117,8 @@
 		3B1BBB14295E34AC003CBE4A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3B2ACF1229735D750091D733 /* Others */,
 				3B1BBB20295E35EE003CBE4A /* Core */,
+				3B2ACF1229735D750091D733 /* Others */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -147,8 +147,8 @@
 			children = (
 				3B034C51296B314E0081FDD9 /* RMCharacterListView.swift */,
 				3B2B7C27296F30EB001852B3 /* RMCharacterCollectionViewCell.swift */,
-				3B2ACF1729735E530091D733 /* RMCharacterDetailView.swift */,
 				3B0A455F2975C85500CB082A /* RMFooterLoadingCollectionReusableView.swift */,
+				3B2ACF1729735E530091D733 /* RMCharacterDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

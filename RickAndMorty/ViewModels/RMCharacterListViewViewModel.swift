@@ -114,12 +114,14 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         return cell
     }
     
+    // item size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let bounds = UIScreen.main.bounds
         let width = (bounds.width - 30) / 2
         return CGSize(width: width, height: width * 1.5)
     }
     
+    // select
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         
@@ -127,7 +129,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         delegate?.didSelectCharacter(character)
     }
     
-    // footer
+    // footer view
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionView.elementKindSectionFooter else {
             fatalError("Unsupported")
@@ -141,6 +143,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         return footerView
     }
     
+    // footer size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         guard shouldShowLoadMoreIndicator else {
             return .zero
