@@ -8,10 +8,17 @@
 import UIKit
 
 final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
+    
+    // MARK: - Public Properties
     static let identifier = "RMCharacterEpisodeCollectionViewCell"
     
+    // MARK: - Private Properties
+    
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        contentView.backgroundColor = .tertiarySystemBackground
         
         addConstraints()
     }
@@ -20,14 +27,17 @@ final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
     override func prepareForReuse() {
         super.prepareForReuse()
     }
     
-    func configure(with viewModel: RMCharacterEpisodewCollectionViewCellViewModel) {
+    // MARK: - Public Methods
+    func configure(with viewModel: RMCharacterEpisodeCollectionViewCellViewModel) {
         
     }
     
+    // MARK: - Private Methods
     private func addConstraints() {
         
     }

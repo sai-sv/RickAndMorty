@@ -27,6 +27,15 @@ final class RMCharacterDetailViewViewModel {
         return URL(string: character.url)
     }
     
+    // MARK: - Private Properties
+    private let character: RMCharacter
+    
+    // MARK: - Init
+    init(character: RMCharacter) {
+        self.character = character
+        setupSections()
+    }
+    
     // MARK: - Public Methods
     func createPhotoSectionLayout() ->NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
@@ -71,19 +80,19 @@ final class RMCharacterDetailViewViewModel {
         return section
     }
     
-    // MARK: - Init
-    init(character: RMCharacter) {
-        self.character = character
-        setupSections()
-    }
-    
-    // MARK: - Private Properties
-    private let character: RMCharacter
-    
     // MARK: - Private Methods
     private func setupSections() {
-        sections = [.photo(viewModel: .init()),
-                    .information(viewModels: [.init(), .init(), .init(), .init()]),
-                    .episodes(viewModels: [.init(), .init(), .init(), .init()])]
+        sections = [.photo(viewModel: .init(imageUrl: URL(string: character.image))),
+                    .information(viewModels: [.init(value: character.status.text, title: "Status"),
+                                              .init(value: character.gender.rawValue, title: "Gender"),
+                                              .init(value: character.type, title: "Type"),
+                                              .init(value: character.species, title: "Species"),
+                                              .init(value: character.origin.name, title: "Origin"),
+                                              .init(value: character.location.name, title: "Location"),
+                                              .init(value: character.created, title: "Created"),
+                                              .init(value: "\(character.episode.count)", title: "Total Episodes"),]),
+                    .episodes(viewModels: character.episode.compactMap ({
+                        RMCharacterEpisodeCollectionViewCellViewModel(episodeUrl: URL(string: $0))
+                    }))]
     }
 }

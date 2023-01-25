@@ -10,8 +10,10 @@ import UIKit
 /// Controller to show and search for Characters
 final class RMCharacterViewController: UIViewController {
 
+    // MARK: - Private Properties
     private let characterListView = RMCharacterListView()
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +26,7 @@ final class RMCharacterViewController: UIViewController {
         characterListView.delegate = self
     }
     
+    // MARK: - Private Methods
     private func addCharacterViewConstraints() {
         NSLayoutConstraint.activate([
             characterListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

@@ -9,6 +9,7 @@ import UIKit
 
 class RMFooterLoadingCollectionReusableView: UICollectionReusableView {
     
+    // MARK: - Public Properties
     static let identifier = "RMFooterLoadingCollectionReusableView"
     
     // MARK: - Private Properties
@@ -18,11 +19,6 @@ class RMFooterLoadingCollectionReusableView: UICollectionReusableView {
         spinner.translatesAutoresizingMaskIntoConstraints = false
         return spinner
     }()
-    
-    // MARK: - Public Methods
-    func startAnimating() {
-        spinner.startAnimating()
-    }
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -36,6 +32,11 @@ class RMFooterLoadingCollectionReusableView: UICollectionReusableView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Public Methods
+    func startAnimating() {
+        spinner.startAnimating()
     }
     
     // MARK: - Private Methods

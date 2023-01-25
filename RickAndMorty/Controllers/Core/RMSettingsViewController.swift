@@ -10,6 +10,7 @@ import UIKit
 /// Controller to show various app options and settings
 final class RMSettingsViewController: UIViewController {
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         

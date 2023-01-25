@@ -10,6 +10,7 @@ import UIKit
 /// Controller to show and search for Episodes
 final class RMEpisodeViewController: UIViewController {
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         

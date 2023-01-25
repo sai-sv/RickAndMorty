@@ -8,10 +8,19 @@
 import UIKit
 
 final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
+    
+    // MARK: - Public Properties
     static let identifier = "RMCharacterInfoCollectionViewCell"
     
+    // MARK: - Private Properties
+    
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        contentView.layer.cornerRadius = 8
+        contentView.layer.masksToBounds = true
+        contentView.backgroundColor = .tertiarySystemBackground
         
         addConstraints()
     }
@@ -20,14 +29,17 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
     override func prepareForReuse() {
         super.prepareForReuse()
     }
     
+    // MARK: - Public Methods
     func configure(with viewModel: RMCharacterInfoCollectionViewCellViewModel) {
         
     }
     
+    // MARK: - Private Methods
     private func addConstraints() {
         
     }

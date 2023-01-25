@@ -9,6 +9,7 @@ import UIKit
 
 final class RMCharacterCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - Public Properties
     static let cellIndentifier = "RMCharacterCollectionViewCell"
     
     // MARK: - Private Properties
@@ -54,6 +55,7 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
     override func prepareForReuse() {
         super.prepareForReuse()
         

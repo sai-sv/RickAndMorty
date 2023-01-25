@@ -14,8 +14,10 @@ protocol RMCharacterListViewDelegate: AnyObject {
 
 final class RMCharacterListView: UIView {
     
+    // MARK: - Public Properties
     weak var delegate: RMCharacterListViewDelegate?
     
+    // MARK: - Private Properties
     private let viewModel = RMCharacterListViewViewModel()
     
     private let spinner: UIActivityIndicatorView = {
@@ -41,6 +43,7 @@ final class RMCharacterListView: UIView {
         return collectionView
     }()
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -61,6 +64,7 @@ final class RMCharacterListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Private Methods
     private func addConstraints() {
         NSLayoutConstraint.activate([
             spinner.widthAnchor.constraint(equalToConstant: 100),

@@ -9,6 +9,9 @@ import UIKit
 
 final class RMCharacterDetailView: UIView {
     
+    // MARK: - Public Properties
+    var collectionView: UICollectionView?
+    
     // MARK: - Private Properties
     private let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .large)
@@ -18,11 +21,6 @@ final class RMCharacterDetailView: UIView {
     }()
     
     private let viewModel: RMCharacterDetailViewViewModel
-    
-    // MARK: - Public Properties
-    var collectionView: UICollectionView?
-    
-    // MARK: - Public Methods
     
     // MARK: - Init
     init(frame: CGRect, viewModel: RMCharacterDetailViewViewModel) {
@@ -42,7 +40,7 @@ final class RMCharacterDetailView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+        
     // MARK: - Private Methods
     private func createCollectionView() -> UICollectionView {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, _ in
