@@ -17,7 +17,6 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         let iv = UIImageView(frame: .zero)
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFit
-        iv.image = UIImage(systemName: "globe.americas")
         return iv
     }()
     
@@ -25,7 +24,7 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 22, weight: .light)
-        label.text = "Earth"
+        label.numberOfLines = 0
         return label
     }()
     
@@ -34,7 +33,6 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        label.text = "Location"
         return label
     }()
     
@@ -68,14 +66,20 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     // MARK: - Lifecycle
     override func prepareForReuse() {
         super.prepareForReuse()
-//        imageView.image = nil
-//        valueLabel.text = nil
-//        titleLabel.text = nil
+        imageView.image = nil
+        imageView.tintColor = .label
+        valueLabel.text = nil
+        titleLabel.text = nil
+        titleLabel.textColor = .label
     }
     
     // MARK: - Public Methods
     func configure(with viewModel: RMCharacterInfoCollectionViewCellViewModel) {
-        
+        imageView.image = viewModel.icon
+        imageView.tintColor = viewModel.tintColor
+        valueLabel.text = viewModel.displayValue
+        titleLabel.text = viewModel.displayTitle
+        titleLabel.textColor = viewModel.tintColor
     }
     
     // MARK: - Private Methods
@@ -86,10 +90,10 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 35),
             imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
             
-            valueLabel.heightAnchor.constraint(equalToConstant: 30),
-            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 35),
+            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             valueLabel.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 10),
             valueLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
+            valueLabel.bottomAnchor.constraint(equalTo: titleContainerView.topAnchor),
             
             titleContainerView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.33),
             titleContainerView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
