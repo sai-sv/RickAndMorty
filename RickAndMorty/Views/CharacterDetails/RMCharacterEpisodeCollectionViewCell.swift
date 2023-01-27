@@ -34,7 +34,12 @@ final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Methods
     func configure(with viewModel: RMCharacterEpisodeCollectionViewCellViewModel) {
-        
+        viewModel.registerBlock { data in
+            print(data.name)
+            print(data.air_date)
+            print(data.episode)
+        }
+        viewModel.fetchEpisode()
     }
     
     // MARK: - Private Methods
