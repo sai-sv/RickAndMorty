@@ -27,6 +27,10 @@ final class RMCharacterDetailViewViewModel {
         return URL(string: character.url)
     }
     
+    var episodes: [String] {
+        return character.episode
+    }
+    
     // MARK: - Private Properties
     private let character: RMCharacter
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RMCharacterDetailViewController: UIViewController {
+final class RMCharacterDetailViewController: UIViewController {
     
     // MARK: - Private Properties
     private var viewModel: RMCharacterDetailViewViewModel    
@@ -94,6 +94,18 @@ extension RMCharacterDetailViewController: UICollectionViewDelegate, UICollectio
                     as? RMCharacterEpisodeCollectionViewCell else { fatalError() }
             cell.configure(with: viewModels[indexPath.row])
             return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch viewModel.sections[indexPath.section] {
+        case .photo, .information:
+            break
+        case .episodes:
+            let episodes = viewModel.episodes
+            let episodeUrl = episodes[indexPath.row]            
+            let vc = RMEpisodeDetailViewController(url: URL(string: episodeUrl))
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
