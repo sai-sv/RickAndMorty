@@ -37,7 +37,7 @@ final class RMCharacterDetailViewViewModel {
     }
     
     // MARK: - Public Methods
-    func createPhotoSectionLayout() ->NSCollectionLayoutSection {
+    func createPhotoSectionLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -51,7 +51,7 @@ final class RMCharacterDetailViewViewModel {
         return section
     }
     
-    func createInfoSectionLayout() ->NSCollectionLayoutSection {
+    func createInfoSectionLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
                                               heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -65,7 +65,7 @@ final class RMCharacterDetailViewViewModel {
         return section
     }
     
-    func createEpisodesSectionLayout() ->NSCollectionLayoutSection {
+    func createEpisodesSectionLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
