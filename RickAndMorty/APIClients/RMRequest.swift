@@ -17,18 +17,9 @@ enum HttpMethod: String {
 /// Object that represents a single API call
 final class RMRequest {
     
-    private struct Constants {
-        static let baseURL = "https://rickandmortyapi.com/api"
-    }
-    
-    let method: HttpMethod = .get
-    
-    // MARK: - Private Properties
-    private let endpoint: RMEndpoint
-    private let pathComponents: [String]
-    private let queryItems: [URLQueryItem]
-    
     // MARK: - Public Properties
+    let method: HttpMethod = .get
+    let endpoint: RMEndpoint
     var url: URL? {
         let string = pathComponents.reduce(Constants.baseURL + "/" + endpoint.rawValue) { $0 + "/" + $1 }
         
@@ -43,6 +34,13 @@ final class RMRequest {
         
         return components.url
     }
+    
+    // MARK: - Private Properties
+    private struct Constants {
+        static let baseURL = "https://rickandmortyapi.com/api"
+    }
+    private let pathComponents: [String]
+    private let queryItems: [URLQueryItem]
     
     // MARK: - Init
     init(endpoint: RMEndpoint, pathComponents: [String] = [], queryItems: [URLQueryItem] = []) {
@@ -63,7 +61,6 @@ final class RMRequest {
         }
         self.init(endpoint: rmEndpoint, pathComponents: pathComponents, queryItems: components.queryItems ?? [])
     }
-    
 }
 
 extension RMRequest {

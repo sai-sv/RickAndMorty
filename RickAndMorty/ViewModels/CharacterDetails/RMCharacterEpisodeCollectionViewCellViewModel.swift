@@ -18,18 +18,16 @@ final class RMCharacterEpisodeCollectionViewCellViewModel {
     // MARK: - Public Properties
     
     // MARK: - Private Properties
-    var episodeUrl: URL?
-    var episode: RMEpisode? {
+    private var episodeUrl: URL?
+    private var episode: RMEpisode? {
         didSet {
             guard let episode = episode else { return }
             dataBlock?(episode)
         }
     }
-    var dataBlock: ((RMEpisodeDataRenderProtocol) -> Void)?
-    var isFetching: Bool = false
-    
-    // MARK: - Public Methods
-    
+    private var dataBlock: ((RMEpisodeDataRenderProtocol) -> Void)?
+    private var isFetching: Bool = false
+        
     // MARK: - Init
     init(episodeUrl: URL?) {
         self.episodeUrl = episodeUrl
@@ -64,6 +62,8 @@ final class RMCharacterEpisodeCollectionViewCellViewModel {
             }
         }
     }
+    
+    // MARK: - Public Methods
     
     // MARK: - Private Methods
 }

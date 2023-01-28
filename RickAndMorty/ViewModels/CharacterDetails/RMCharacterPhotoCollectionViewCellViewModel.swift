@@ -12,7 +12,7 @@ final class RMCharacterPhotoCollectionViewCellViewModel {
     // MARK: - Public Properties
     
     // MARK: - Private Properties
-    let imageUrl: URL?
+    private let imageUrl: URL?
     
     // MARK: - Init
     init(imageUrl: URL?) {

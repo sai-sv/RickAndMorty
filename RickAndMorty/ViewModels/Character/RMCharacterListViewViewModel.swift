@@ -19,11 +19,11 @@ final class RMCharacterListViewViewModel: NSObject {
     // MARK: - Public Properties
     weak var delegate: RMCharacterListViewViewModelDelegate?
     
-    var shouldShowLoadMoreIndicator: Bool {
+    // MARK: - Private Properties
+    private var shouldShowLoadMoreIndicator: Bool {
         return apiInfo?.next != nil
     }
     
-    // MARK: - Private Properties
     private var characters: [RMCharacter] = [] {
         didSet {
             for character in characters {
@@ -38,9 +38,7 @@ final class RMCharacterListViewViewModel: NSObject {
     }
     
     private var apiInfo: RMGetAllCharactersResponse.Info?
-    
     private var cellViewModels: [RMCharacterCollectionViewCellViewModel] = []
-    
     private var isLoadingMoreCharacters: Bool = false
     
     // MARK: - Public Methods
@@ -63,7 +61,8 @@ final class RMCharacterListViewViewModel: NSObject {
         }
     }
     
-    func fetchAdditionalCharacters(url: URL) {
+    // MARK: - Private Methods
+    private func fetchAdditionalCharacters(url: URL) {
         guard !isLoadingMoreCharacters else { return }
         isLoadingMoreCharacters = true
         
@@ -94,7 +93,6 @@ final class RMCharacterListViewViewModel: NSObject {
                 self.isLoadingMoreCharacters = false
             }
         }
-        
     }
 }
 

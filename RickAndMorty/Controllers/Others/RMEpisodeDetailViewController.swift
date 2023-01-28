@@ -10,11 +10,11 @@ import UIKit
 final class RMEpisodeDetailViewController: UIViewController {
 
     // MARK: - Private Properties
-    private var url: URL?
+    private let viewModel: RMEpisodeDetailViewViewModel
     
     // MARK: - Init
     init(url: URL?) {
-        self.url = url
+        self.viewModel = .init(url: url)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -25,6 +25,7 @@ final class RMEpisodeDetailViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Episode"
         
         view.backgroundColor = .systemMint
     }

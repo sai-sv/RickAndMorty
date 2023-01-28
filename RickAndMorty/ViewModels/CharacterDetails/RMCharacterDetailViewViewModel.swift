@@ -16,17 +16,10 @@ final class RMCharacterDetailViewViewModel {
         case information(viewModels: [RMCharacterInfoCollectionViewCellViewModel])
         case episodes(viewModels: [RMCharacterEpisodeCollectionViewCellViewModel])
     }
-    
+    var sections: [SectionType] = []
     var title: String {
         return character.name.uppercased()
     }
-    
-    var sections: [SectionType] = []
-    
-    var requestUrl: URL? {
-        return URL(string: character.url)
-    }
-    
     var episodes: [String] {
         return character.episode
     }

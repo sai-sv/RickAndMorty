@@ -70,15 +70,12 @@ final class RMCharacterInfoCollectionViewCellViewModel {
     var displayTitle: String {
         return type.title
     }
-    
     var icon: UIImage? {
         return type.icon
     }
-    
     var tintColor: UIColor {
         return type.color
     }
-    
     var displayValue: String {
         if value.isEmpty { return "None" }
         if type == .created, let date = Self.dataFormatter.date(from: value) {

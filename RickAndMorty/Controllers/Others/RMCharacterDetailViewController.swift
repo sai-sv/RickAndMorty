@@ -97,6 +97,7 @@ extension RMCharacterDetailViewController: UICollectionViewDelegate, UICollectio
         }
     }
     
+    // select
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch viewModel.sections[indexPath.section] {
         case .photo, .information:
