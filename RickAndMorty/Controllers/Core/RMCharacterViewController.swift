@@ -35,7 +35,6 @@ final class RMCharacterViewController: UIViewController {
             characterListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-
 }
 
 // MARK: - RMCharacterListViewDelegate
@@ -47,5 +46,4 @@ extension RMCharacterViewController: RMCharacterListViewDelegate {
         detailVC.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(detailVC, animated: true)
     }
-    
 }

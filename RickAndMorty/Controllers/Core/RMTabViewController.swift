@@ -19,31 +19,22 @@ final class RMTabBarViewController: UITabBarController {
     
     // MARK: - Private Methods
     private func setupTabs() {
-        let characterVC = RMCharacterViewController()
-        let locationVC = RMLocationViewController()
-        let episodeVC = RMEpisodeViewController()
-        let settingsVC = RMSettingsViewController()
+        let charactersVC = createNavigationController(RMCharacterViewController.self, with: "Characters", imageName: "person", tag: 1)
+        let locationsVC = createNavigationController(RMLocationViewController.self, with: "Locations", imageName: "globe", tag: 2)
+        let episodesVC = createNavigationController(RMEpisodeViewController.self, with: "Episodes", imageName: "tv", tag: 3)
+        let settingsVC = createNavigationController(RMSettingsViewController.self, with: "Settings", imageName: "gear", tag: 4)
         
-        characterVC.navigationItem.largeTitleDisplayMode = .automatic
-        locationVC.navigationItem.largeTitleDisplayMode = .automatic
-        episodeVC.navigationItem.largeTitleDisplayMode = .automatic
-        settingsVC.navigationItem.largeTitleDisplayMode = .automatic
+        setViewControllers([charactersVC, locationsVC, episodesVC, settingsVC], animated: true)
+    }
+    
+    private func createNavigationController<T: UIViewController>(_ type: T.Type, with title: String, imageName: String, tag: Int) -> UINavigationController {
+        let vc = T()
+        vc.navigationItem.largeTitleDisplayMode = .automatic
         
-        let nav1VC = UINavigationController(rootViewController: characterVC)
-        let nav2VC = UINavigationController(rootViewController: locationVC)
-        let nav3VC = UINavigationController(rootViewController: episodeVC)
-        let nav4VC = UINavigationController(rootViewController: settingsVC)
-        
-        nav1VC.tabBarItem = UITabBarItem(title: "Characters", image: UIImage(systemName: "person"), tag: 1)
-        nav2VC.tabBarItem = UITabBarItem(title: "Locations", image: UIImage(systemName: "globe"), tag: 2)
-        nav3VC.tabBarItem = UITabBarItem(title: "Episodes", image: UIImage(systemName: "tv"), tag: 3)
-        nav4VC.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "gear"), tag: 4)
-        
-        for nav in [nav1VC, nav2VC, nav3VC, nav4VC] {
-            nav.navigationBar.prefersLargeTitles = true
-        }
-        
-        setViewControllers([nav1VC, nav2VC, nav3VC, nav4VC], animated: true)
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.tabBarItem = UITabBarItem(title: title, image: UIImage(systemName: imageName), tag: tag)
+        navVC.navigationBar.prefersLargeTitles = true
+        return navVC
     }
 }
 

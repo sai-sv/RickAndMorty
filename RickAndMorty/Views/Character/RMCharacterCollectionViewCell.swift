@@ -10,7 +10,7 @@ import UIKit
 final class RMCharacterCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Properties
-    static let cellIndentifier = "RMCharacterCollectionViewCell"
+    static let cellIdentifier = "RMCharacterCollectionViewCell"
     
     // MARK: - Private Properties
     private let imageView: UIImageView = {
@@ -70,7 +70,7 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Public Methods
-    func configure(_ viewModel: RMCharacterCollectionViewCellViewModel) {
+    func configure(with viewModel: RMCharacterCollectionViewCellViewModel) {
         nameLabel.text = viewModel.characterName
         statusLabel.text = viewModel.characterStatusText
         viewModel.fetchImage { [weak self] result in

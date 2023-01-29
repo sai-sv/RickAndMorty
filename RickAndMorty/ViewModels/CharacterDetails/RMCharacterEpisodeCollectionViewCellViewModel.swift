@@ -13,7 +13,7 @@ protocol RMEpisodeDataRenderProtocol {
     var episode: String { get }
 }
 
-final class RMCharacterEpisodeCollectionViewCellViewModel {
+final class RMCharacterEpisodeCollectionViewCellViewModel: Hashable {
     
     // MARK: - Public Properties
     
@@ -27,7 +27,7 @@ final class RMCharacterEpisodeCollectionViewCellViewModel {
     }
     private var dataBlock: ((RMEpisodeDataRenderProtocol) -> Void)?
     private var isFetching: Bool = false
-        
+    
     // MARK: - Init
     init(episodeUrl: URL?) {
         self.episodeUrl = episodeUrl
@@ -61,6 +61,14 @@ final class RMCharacterEpisodeCollectionViewCellViewModel {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    static func == (lhs: RMCharacterEpisodeCollectionViewCellViewModel, rhs: RMCharacterEpisodeCollectionViewCellViewModel) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(episodeUrl?.absoluteString ?? "")
     }
     
     // MARK: - Public Methods

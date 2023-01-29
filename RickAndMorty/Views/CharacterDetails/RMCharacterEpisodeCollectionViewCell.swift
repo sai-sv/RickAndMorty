@@ -10,7 +10,7 @@ import UIKit
 final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Properties
-    static let identifier = "RMCharacterEpisodeCollectionViewCell"
+    static let cellIdentifier = "RMCharacterEpisodeCollectionViewCell"
     
     // MARK: - Private Properties
     private let episodeLabel: UILabel = {

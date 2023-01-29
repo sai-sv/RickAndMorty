@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RMEpisodeDetailViewViewModel {
+final class RMEpisodeDetailViewViewModel {
 
     // MARK: - Private Properties
     private let endpointUrl: URL?
