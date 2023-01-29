@@ -38,10 +38,7 @@ final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.layer.cornerRadius = 8
-        contentView.layer.borderWidth = 2
-        contentView.layer.borderColor = UIColor.systemBlue.cgColor
-        contentView.layer.masksToBounds = true
+        setupLayer()
         contentView.backgroundColor = .tertiarySystemBackground
         
         contentView.addSubview(episodeLabel)
@@ -64,6 +61,7 @@ final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Methods
     func configure(with viewModel: RMCharacterEpisodeCollectionViewCellViewModel) {
+        contentView.layer.borderColor = viewModel.borderColor.cgColor
         viewModel.registerBlock { [weak self] data in
             // Main Queue
             guard let self = self else { return }
@@ -75,6 +73,13 @@ final class RMCharacterEpisodeCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Private Methods
+    private func setupLayer() {
+        contentView.layer.cornerRadius = 8
+        contentView.layer.borderWidth = 2
+        contentView.layer.borderColor = UIColor.systemBlue.cgColor
+        contentView.layer.masksToBounds = true
+    }
+    
     private func addConstraints() {
         NSLayoutConstraint.activate([
             episodeLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.3),

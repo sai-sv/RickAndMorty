@@ -12,6 +12,9 @@ final class RMEpisodeDetailView: UIView {
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .systemPink
     }
     
     required init?(coder: NSCoder) {
