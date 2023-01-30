@@ -10,8 +10,8 @@ import UIKit
 final class RMCharacterDetailViewController: UIViewController {
     
     // MARK: - Private Properties
-    private var viewModel: RMCharacterDetailViewViewModel    
     private let detailView: RMCharacterDetailView
+    private var viewModel: RMCharacterDetailViewViewModel
     
     // MARK: - Init
     init(viewModel: RMCharacterDetailViewViewModel) {        
@@ -28,21 +28,23 @@ final class RMCharacterDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
         title = viewModel.title
+        view.backgroundColor = .systemBackground
+        
+        addShareButton()
         
         view.addSubview(detailView)
         addConstraints()
         
         detailView.collectionView?.delegate = self
         detailView.collectionView?.dataSource = self
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
-                                                            target: self,
-                                                            action: #selector(didTapShare))
     }
     
     // MARK: - Private Methods
+    private func addShareButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShare))
+    }
+    
     @objc private func didTapShare() {
         // TODO:...
     }
@@ -105,7 +107,7 @@ extension RMCharacterDetailViewController: UICollectionViewDelegate, UICollectio
         case .episodes:
             let episodes = viewModel.episodes
             let episodeUrl = episodes[indexPath.row]            
-            let vc = RMEpisodeDetailViewController(url: URL(string: episodeUrl))
+            let vc = RMEpisodeDetailViewController(endpointUrl: URL(string: episodeUrl))
             navigationController?.pushViewController(vc, animated: true)
         }
     }

@@ -14,8 +14,8 @@ final class RMEpisodeDetailViewController: UIViewController {
     private let viewModel: RMEpisodeDetailViewViewModel
     
     // MARK: - Init
-    init(url: URL?) {
-        self.viewModel = RMEpisodeDetailViewViewModel(url: url)
+    init(endpointUrl: URL?) {
+        self.viewModel = RMEpisodeDetailViewViewModel(endpointUrl: endpointUrl)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,6 +34,9 @@ final class RMEpisodeDetailViewController: UIViewController {
         
         view.addSubview(detailView)
         addConstraints()
+        
+        viewModel.delegate = self
+        viewModel.fetchEpisodeData()
     }
     
     // MARK: - Private Methods
@@ -52,5 +55,13 @@ final class RMEpisodeDetailViewController: UIViewController {
             detailView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             detailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+}
+
+// MARK: - RMEpisodeDetailViewViewModel Delegate
+extension RMEpisodeDetailViewController: RMEpisodeDetailViewViewModelDelegate {
+    
+    func didFetchEpisodeDetails() {
+        detailView.configure(with: viewModel)
     }
 }
