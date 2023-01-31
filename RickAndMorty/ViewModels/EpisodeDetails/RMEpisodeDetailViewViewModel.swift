@@ -14,6 +14,11 @@ protocol RMEpisodeDetailViewViewModelDelegate: AnyObject {
 final class RMEpisodeDetailViewViewModel {
 
     // MARK: - Public Properties
+    enum SectionType {
+        case information(viewModels: [RMEpisodeInfoCollectionViewCellViewModel])
+        case characters(viewModels: [RMCharacterCollectionViewCellViewModel])
+    }
+    private(set) var sections: [SectionType] = []
     weak var delegate: RMEpisodeDetailViewViewModelDelegate?
     
     // MARK: - Private Properties
