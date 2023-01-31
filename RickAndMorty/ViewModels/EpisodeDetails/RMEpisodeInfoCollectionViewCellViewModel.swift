@@ -7,14 +7,10 @@
 
 import Foundation
 
-final class RMEpisodeInfoCollectionViewCellViewModel {
+struct RMEpisodeInfoCollectionViewCellViewModel {
     
     // MARK: - Public Properties
     let title: String
     let value: String
     
-    init(title: String, value: String) {
-        self.title = title
-        self.value = value
-    }
 }

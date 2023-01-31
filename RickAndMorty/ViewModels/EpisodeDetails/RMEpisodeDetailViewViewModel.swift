@@ -12,7 +12,7 @@ protocol RMEpisodeDetailViewViewModelDelegate: AnyObject {
 }
 
 final class RMEpisodeDetailViewViewModel {
-
+    
     // MARK: - Public Properties
     enum SectionType {
         case information(viewModels: [RMEpisodeInfoCollectionViewCellViewModel])
@@ -23,15 +23,16 @@ final class RMEpisodeDetailViewViewModel {
     
     // MARK: - Private Properties
     private let endpointUrl: URL?
-    private var dataTuple: (RMEpisode, [RMCharacter])? {
+    private var dataTuple: (episode: RMEpisode, characters: [RMCharacter])? {
         didSet {
+            self.createSections()
             self.delegate?.didFetchEpisodeDetails()
         }
     }
     
     // MARK: - Init
     init(endpointUrl: URL?) {
-        self.endpointUrl = endpointUrl        
+        self.endpointUrl = endpointUrl
     }
     
     // MARK: - Public Methods
@@ -69,7 +70,22 @@ final class RMEpisodeDetailViewViewModel {
         }
         
         group.notify(queue: .main) {
-            self.dataTuple = (episode, characters)
+            self.dataTuple = (episode: episode, characters: characters)
         }
+    }
+    
+    private func createSections() {
+        guard let dataTuple = self.dataTuple else { return }
+        let episode = dataTuple.episode
+        let characters = dataTuple.characters
+        self.sections = [.information(viewModels:
+                                        [.init(title: "Episode Name", value: episode.name),
+                                         .init(title: "Air Date", value: episode.air_date),
+                                         .init(title: "Episode", value: episode.episode),
+                                         .init(title: "Created", value: episode.created)]),
+                         .characters(viewModels: characters.compactMap({ character in
+                             RMCharacterCollectionViewCellViewModel(characterName: character.name,
+                                                                    characterStatusText: character.status,
+                                                                    characterImageUrl: URL(string: character.image))}))]
     }
 }
