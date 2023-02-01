@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol RMEpisodeDetailViewDelegate: AnyObject {
+    func rmEpisodeDetailView(_ detailView: RMEpisodeDetailView, didSelect character: RMCharacter)
+}
+
 final class RMEpisodeDetailView: UIView {
     
     // MARK: - Public Properties
+    weak var delegate: RMEpisodeDetailViewDelegate?
     
     // MARK: - Private Properties
     private var collectionView: UICollectionView?
@@ -92,7 +97,7 @@ final class RMEpisodeDetailView: UIView {
         item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         
         let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                       heightDimension: .absolute(100)),
+                                                                       heightDimension: .absolute(80)),
                                                      subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
@@ -175,5 +180,18 @@ extension RMEpisodeDetailView: UICollectionViewDelegate, UICollectionViewDataSou
     // select
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        guard let sections = self.viewModel?.sections else {
+            return
+        }
+        
+        switch sections[indexPath.section] {
+        case .information:
+            break
+        case .characters:
+            guard let character = self.viewModel?.character(at: indexPath.row) else { return }
+            delegate?.rmEpisodeDetailView(self, didSelect: character)            
+            break
+        }
     }
 }

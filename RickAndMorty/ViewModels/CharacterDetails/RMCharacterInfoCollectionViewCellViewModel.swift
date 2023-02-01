@@ -84,24 +84,24 @@ final class RMCharacterInfoCollectionViewCellViewModel {
         return value
     }
     
-    // MARK: - Private Properties
-    private let type: InfoType
-    private let value: String
-    
-    private static let dataFormatter: DateFormatter = {
+    static let dataFormatter: DateFormatter = {
        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         dateFormatter.timeZone = .current
         return dateFormatter
     }()
     
-    private static let shortDateFormatter: DateFormatter = {
+    static let shortDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         dateFormatter.timeZone = .current
         return dateFormatter
     }()
+    
+    // MARK: - Private Properties
+    private let type: InfoType
+    private let value: String
     
     // MARK: - Public Methods
     
