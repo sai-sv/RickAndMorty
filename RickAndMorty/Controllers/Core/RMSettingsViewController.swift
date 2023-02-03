@@ -8,13 +8,14 @@
 import UIKit
 import SwiftUI
 import SafariServices
+import StoreKit
 
 /// Controller to show various app options and settings
 final class RMSettingsViewController: UIViewController {
     
     // MARK: - Private Properties
     private var settingsVC: UIHostingController<RMSettingsView>?
-        
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +63,9 @@ final class RMSettingsViewController: UIViewController {
             let safaryVC = SFSafariViewController(url: url)
             present(safaryVC, animated: true)
         } else if type == .rateApp {
+            if let windowScene = view.window?.windowScene {
+                SKStoreReviewController.requestReview(in: windowScene)
+            }
             
         }
     }
