@@ -1,5 +1,5 @@
 //
-//  RMSettingsViewModel.swift
+//  RMSettingsViewViewModel.swift
 //  RickAndMorty
 //
 //  Created by Sergei Sai on 01.02.2023.
@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct RMSettingsViewModel {
+struct RMSettingsViewViewModel {
     
-    // MARK: - Private Properties
-    private let cellViewModels: [RMSettingsCellViewModel]
+    // MARK: - Public Properties
+    let cellViewModels: [RMSettingsCellViewModel]
     
     // MARK: - Init
     init(viewModels: [RMSettingsCellViewModel]) {
