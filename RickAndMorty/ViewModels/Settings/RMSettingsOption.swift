@@ -72,4 +72,23 @@ enum RMSettingsOption: CaseIterable {
             return .systemOrange
         }
     }
+    
+    var url: URL? {
+        switch self {
+        case .rateApp:
+            return nil
+        case .contactUs:
+            return URL(string: "https://www.apple.com/contact/")
+        case .terms:
+            return URL(string: "https://www.apple.com/legal/internet-services/itunes/")
+        case .privacy:
+            return URL(string: "https://www.apple.com/ru/privacy/")
+        case .apiReference:
+            return URL(string: "https://rickandmortyapi.com/api/")
+        case .viewSeries:
+            return URL(string: "https://youtube.com/playlist?list=PL5PR3UyfTWvdl4Ya_2veOB6TM16FXuv4y")
+        case .viewCode:
+            return URL(string: "https://rickandmortyapi.com/documentation/")
+        }
+    }
 }

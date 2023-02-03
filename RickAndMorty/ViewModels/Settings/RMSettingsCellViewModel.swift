@@ -7,10 +7,12 @@
 
 import UIKit
 
-struct RMSettingsCellViewModel: Identifiable, Hashable {
+struct RMSettingsCellViewModel: Identifiable {
     
     // MARK: - Public Properties
     let id = UUID()
+    let type: RMSettingsOption
+    var onDidTapHandler: (RMSettingsOption) -> Void
     
     var image: UIImage? {
         return type.iconImage
@@ -24,11 +26,9 @@ struct RMSettingsCellViewModel: Identifiable, Hashable {
         return type.iconContainerColor
     }
     
-    // MARK: - Private Properties
-    private let type: RMSettingsOption
-    
     // MARK: - Init
-    init(type: RMSettingsOption) {
+    init(type: RMSettingsOption, onDidTapHandler: @escaping (RMSettingsOption) -> Void) {
         self.type = type
+        self.onDidTapHandler = onDidTapHandler
     }
 }

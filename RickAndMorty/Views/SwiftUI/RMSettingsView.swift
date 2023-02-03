@@ -28,13 +28,14 @@ struct RMSettingsView: View {
                 }
                 Text(cellViewModel.title)
                     .padding(.leading, 10)
+                Spacer()
             }
             .padding(.bottom, 3)
+            .onTapGesture {
+                cellViewModel.onDidTapHandler(cellViewModel.type)
+            }
         }
     }
-    
-    
-    
     
     // MARK: - Init
     init(viewModel: RMSettingsViewViewModel) {
@@ -44,7 +45,9 @@ struct RMSettingsView: View {
 
 struct RMSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        RMSettingsView(viewModel: RMSettingsViewViewModel(viewModels: RMSettingsOption.allCases.compactMap({ RMSettingsCellViewModel(type: $0)
+        RMSettingsView(viewModel: RMSettingsViewViewModel(viewModels: RMSettingsOption.allCases.compactMap({
+            RMSettingsCellViewModel(type: $0) { option in
+        }
         })))
     }
 }
