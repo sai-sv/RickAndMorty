@@ -1,20 +1,20 @@
 //
-//  RMEpisodeDetailView.swift
+//  RMLocationDetailView.swift
 //  RickAndMorty
 //
-//  Created by Sergei Sai on 28.01.2023.
+//  Created by Sergei Sai on 04.02.2023.
 //
 
 import UIKit
 
-protocol RMEpisodeDetailViewDelegate: AnyObject {
-    func rmEpisodeDetailView(_ detailView: RMEpisodeDetailView, didSelect character: RMCharacter)
+protocol RMLocationDetailViewDelegate: AnyObject {
+    func rmLocationDetailView(_ detailView: RMLocationDetailView, didSelect character: RMCharacter)
 }
 
-final class RMEpisodeDetailView: UIView {
-    
+final class RMLocationDetailView: UIView {
+
     // MARK: - Public Properties
-    weak var delegate: RMEpisodeDetailViewDelegate?
+    weak var delegate: RMLocationDetailViewDelegate?
     
     // MARK: - Private Properties
     private var collectionView: UICollectionView?
@@ -25,7 +25,7 @@ final class RMEpisodeDetailView: UIView {
         return spinner
     }()
     
-    private var viewModel: RMEpisodeDetailViewViewModel? {
+    private var viewModel: RMLocationDetailViewViewModel? {
         didSet {
             spinner.stopAnimating()
             collectionView?.isHidden = false
@@ -60,11 +60,11 @@ final class RMEpisodeDetailView: UIView {
     }
     
     // MARK: - Public Methods
-    func configure(with model: RMEpisodeDetailViewViewModel) {
+    func configure(with model: RMLocationDetailViewViewModel) {
         self.viewModel = model
     }
     
-    // MARK: Private Methods
+    // MARK: - Private Methods
     private func createCollectionView() -> UICollectionView {
         let layout = UICollectionViewCompositionalLayout { section, _ in
             return self.createCollectionViewLayout(for: section)
@@ -80,18 +80,18 @@ final class RMEpisodeDetailView: UIView {
     
     private func createCollectionViewLayout(for sectionIndex: Int) -> NSCollectionLayoutSection {
         guard let sections = self.viewModel?.sections else {
-            return createEpisodeInfoSectionLayout()
+            return createLocationInfoSectionLayout()
         }
         
         switch sections[sectionIndex] {
         case .information:
-            return self.createEpisodeInfoSectionLayout()
+            return self.createLocationInfoSectionLayout()
         case .characters:
             return self.createCharactersSectionLayout()
         }
     }
     
-    private func createEpisodeInfoSectionLayout() -> NSCollectionLayoutSection {
+    private func createLocationInfoSectionLayout() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                                             heightDimension: .fractionalHeight(1)))
         item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
@@ -134,8 +134,8 @@ final class RMEpisodeDetailView: UIView {
     }
 }
 
-// MARK: - UICollectionView Delegate & DataSource
-extension RMEpisodeDetailView: UICollectionViewDelegate, UICollectionViewDataSource {
+// MARK: CollectionView Delegate & DataSource
+extension RMLocationDetailView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel?.sections.count ?? 0
@@ -190,7 +190,7 @@ extension RMEpisodeDetailView: UICollectionViewDelegate, UICollectionViewDataSou
             break
         case .characters:
             guard let character = self.viewModel?.character(at: indexPath.row) else { return }
-            delegate?.rmEpisodeDetailView(self, didSelect: character)            
+            delegate?.rmLocationDetailView(self, didSelect: character)
             break
         }
     }

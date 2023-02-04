@@ -49,7 +49,7 @@ final class RMCharacterViewController: UIViewController {
     }
 }
 
-// MARK: - RMCharacterListViewDelegate
+// MARK: - ListView Delegate
 extension RMCharacterViewController: RMCharacterListViewDelegate {
     
     func rmCharacterListView(_ characterListView: RMCharacterListView, didSelectCharacter character: RMCharacter) {

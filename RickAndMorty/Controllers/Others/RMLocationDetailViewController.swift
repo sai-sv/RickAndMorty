@@ -1,21 +1,23 @@
 //
-//  RMEpisodeDetailViewController.swift
+//  RMLocationDetailViewController.swift
 //  RickAndMorty
 //
-//  Created by Sergei Sai on 27.01.2023.
+//  Created by Sergei Sai on 04.02.2023.
 //
 
 import UIKit
 
-final class RMEpisodeDetailViewController: UIViewController {
+final class RMLocationDetailViewController: UIViewController {
 
+    // MARK: - Public Properties
+    
     // MARK: - Private Properties
-    private let detailView = RMEpisodeDetailView()
-    private let viewModel: RMEpisodeDetailViewViewModel
+    private let detailView = RMLocationDetailView()
+    private let viewModel: RMLocationDetailViewViewModel
     
     // MARK: - Init
     init(endpointUrl: URL?) {
-        self.viewModel = RMEpisodeDetailViewViewModel(endpointUrl: endpointUrl)
+        self.viewModel = RMLocationDetailViewViewModel(endpointUrl: endpointUrl)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,8 +28,8 @@ final class RMEpisodeDetailViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = "Episode"
+
+        title = "Location"
         view.backgroundColor = .systemBackground
         
         addShareButton()
@@ -38,8 +40,10 @@ final class RMEpisodeDetailViewController: UIViewController {
         detailView.delegate = self
         
         viewModel.delegate = self
-        viewModel.fetchEpisodeData()
+        viewModel.fetchLocationData()
     }
+    
+    // MARK: - Public Methods
     
     // MARK: - Private Methods
     private func addShareButton() {
@@ -61,9 +65,9 @@ final class RMEpisodeDetailViewController: UIViewController {
 }
 
 // MARK: - DetailView Delegate
-extension RMEpisodeDetailViewController: RMEpisodeDetailViewDelegate {
+extension RMLocationDetailViewController: RMLocationDetailViewDelegate {
     
-    func rmEpisodeDetailView(_ detailView: RMEpisodeDetailView, didSelect character: RMCharacter) {
+    func rmLocationDetailView(_ detailView: RMLocationDetailView, didSelect character: RMCharacter) {
         let vc = RMCharacterDetailViewController(viewModel: .init(character: character))
         vc.title = character.name
         vc.navigationItem.largeTitleDisplayMode = .never
@@ -72,9 +76,9 @@ extension RMEpisodeDetailViewController: RMEpisodeDetailViewDelegate {
 }
 
 // MARK: - ViewModel Delegate
-extension RMEpisodeDetailViewController: RMEpisodeDetailViewViewModelDelegate {
+extension RMLocationDetailViewController: RMLocationDetailViewViewModelDelegate {
     
-    func didFetchEpisodeDetails() {
+    func didFetchLocationDetails() {
         detailView.configure(with: viewModel)
     }
 }

@@ -47,7 +47,7 @@ final class RMEpisodeViewController: UIViewController {
     }
 }
 
-// MARK: - RMEpisodeListViewDelegate
+// MARK: - ListView Delegate
 extension RMEpisodeViewController: RMEpisodeListViewDelegate {
     
     func rmEpisodeListView(_ episodeListView: RMEpisodeListView, didSelectEpisode episode: RMEpisode) {

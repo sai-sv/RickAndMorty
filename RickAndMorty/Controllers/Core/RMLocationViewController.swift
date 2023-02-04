@@ -25,6 +25,8 @@ final class RMLocationViewController: UIViewController {
         view.addSubview(locationListView)
         addConstraints()
         
+        locationListView.delegate = self
+        
         viewModel.delegate = self
         viewModel.fetchLocations()
     }
@@ -45,6 +47,16 @@ final class RMLocationViewController: UIViewController {
     
     @objc private func didTapSearch() {
         
+    }
+}
+
+// MARK: - ListView Delegate
+extension RMLocationViewController: RMLocationListViewDelegate {
+    
+    func rmLocationListView(_ locationListView: RMLocationListView, didSelect location: RMLocation) {
+        let vc = RMLocationDetailViewController(endpointUrl: URL(string: location.url))
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
