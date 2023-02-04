@@ -50,7 +50,7 @@ final class RMEpisodeListViewViewModel: NSObject {
     
     // MARK: - Public Methods
     func fetchEpisodes() {
-        RMService.shared.execute(.listEpisodesRequests, expecting: RMGetAllEpisodesResponse.self) { [weak self] result in
+        RMService.shared.execute(.episodeListRequest, expecting: RMGetAllEpisodesResponse.self) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):

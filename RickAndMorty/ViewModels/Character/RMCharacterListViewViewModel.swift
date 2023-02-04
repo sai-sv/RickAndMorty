@@ -40,7 +40,7 @@ final class RMCharacterListViewViewModel: NSObject {
     
     // MARK: - Public Methods
     func fetchCharacters() {
-        RMService.shared.execute(.listCharactersRequests, expecting: RMGetAllCharactersResponse.self) { [weak self] result in
+        RMService.shared.execute(.characterListRequest, expecting: RMGetAllCharactersResponse.self) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
