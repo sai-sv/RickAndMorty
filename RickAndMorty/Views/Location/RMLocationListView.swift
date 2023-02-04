@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol RMLocationListViewDelegate: AnyObject {
+    func rmLocationListView(_ locationListView: RMLocationListView, didSelect: RMLocation)
+}
+
 final class RMLocationListView: UIView {
 
     // MARK: - Public Properties
+    weak var delegate: RMLocationListViewDelegate?
     
     // MARK: - Private Properties
     private var tableView: UITableView = {
@@ -91,23 +96,24 @@ extension RMLocationListView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RMLocationTableViewCell.identifier, for: indexPath)
                 as? RMLocationTableViewCell else {
             fatalError("No Cell")
         }
-        guard let viewModel = viewModel  else {
+        guard let viewModel = viewModel else {
             fatalError("No Cell")
         }
         let cellViewModel = viewModel.viewModels[indexPath.row]
         cell.configure(with: cellViewModel)
-        cell.textLabel?.text = cellViewModel.name
         return cell
     }
     
     // select
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        // Notify
+        
+        if let location = viewModel?.location(at: indexPath.row) {
+            delegate?.rmLocationListView(self, didSelect: location)
+        }
     }
 }

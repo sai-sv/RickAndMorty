@@ -51,4 +51,11 @@ final class RMLocationListViewViewModel {
             }
         }
     }
+    
+    func location(at index: Int) -> RMLocation? {
+        guard index >= 0 && index < locations.count else {
+            return nil
+        }
+        return locations[index]
+    }
 }
