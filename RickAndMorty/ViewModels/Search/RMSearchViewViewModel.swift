@@ -9,8 +9,8 @@ import Foundation
 
 struct RMSearchViewViewModel {
     
-    // MARK: - Private Properties
-    private let config: RMSearchViewController.Config
+    // MARK: - Public Properties
+    let config: RMSearchViewController.Config
     
     // MARK: - Init
     init(config: RMSearchViewController.Config) {

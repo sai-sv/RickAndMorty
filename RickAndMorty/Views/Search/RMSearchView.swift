@@ -12,14 +12,21 @@ final class RMSearchView: UIView {
     // MARK: - Public Properties
     
     // MARK: - Private Properties
+    private let noResultsView: RMNoSearchResultsView
+    
     private let viewModel: RMSearchViewViewModel
     
     // MARK: - Init
     init(viewModel: RMSearchViewViewModel) {
+        self.noResultsView = RMNoSearchResultsView(viewModel: .init())
         self.viewModel = viewModel
         super.init(frame: .zero)
         
+        backgroundColor = .systemBackground
         translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(noResultsView)
+        addConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -29,7 +36,14 @@ final class RMSearchView: UIView {
     // MARK: - Public Methods
     
     // MARK: - Private Methods
-    
+    private func addConstraints() {
+        NSLayoutConstraint.activate([
+            noResultsView.widthAnchor.constraint(equalToConstant: 159),
+            noResultsView.heightAnchor.constraint(equalToConstant: 150),
+            noResultsView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            noResultsView.centerYAnchor.constraint(equalTo: centerYAnchor),
+        ])
+    }    
 }
 
 // MARK: - CollectionView Delegate & DataSource
