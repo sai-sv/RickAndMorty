@@ -34,7 +34,9 @@ final class RMEpisodeViewController: UIViewController {
     }
     
     @objc private func didTapSearch() {
-        
+        let searchVC = RMSearchViewController(config: RMSearchViewController.Config(type: .episode))
+        searchVC.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(searchVC, animated: true)
     }
     
     private func addConstraints() {
