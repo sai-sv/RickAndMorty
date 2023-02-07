@@ -28,11 +28,10 @@ final class RMNoSearchResultsView: UIView {
         return label
     }()
     
-    private let viewModel: RMNoSearchResultsViewViewModel
+    private var viewModel: RMNoSearchResultsViewViewModel?
     
     // MARK: - Init
-    init(viewModel: RMNoSearchResultsViewViewModel) {
-        self.viewModel = viewModel
+    init() {        
         super.init(frame: .zero)
         
         backgroundColor = .systemBackground
@@ -43,8 +42,6 @@ final class RMNoSearchResultsView: UIView {
         addSubview(iconView)
         addSubview(label)
         addConstraints()
-        
-        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -52,13 +49,13 @@ final class RMNoSearchResultsView: UIView {
     }
     
     // MARK: - Public Methods
-    
-    // MARK: - Private Methods
-    private func configure() {
-        iconView.image = viewModel.image
-        label.text = viewModel.title
+    func configure(with model: RMNoSearchResultsViewViewModel) {
+        iconView.image = model.image
+        label.text = model.title
+        viewModel = model
     }
     
+    // MARK: - Private Methods
     private func addConstraints() {
         NSLayoutConstraint.activate([
             iconView.widthAnchor.constraint(equalToConstant: 90),

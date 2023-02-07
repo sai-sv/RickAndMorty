@@ -7,9 +7,15 @@
 
 import UIKit
 
-final class RMSearchInputView: UIView {
+protocol RMSearchInputViewDelegate: AnyObject {
+    func rmSearchInputView(_ searchInputView: RMSearchInputView,
+                           didSelectOption option: RMSearchInputViewViewModel.DynamicOption)
+}
 
+final class RMSearchInputView: UIView {
+    
     // MARK: - Public Properties
+    weak var delegate: RMSearchInputViewDelegate?
     
     // MARK: - Private Properties
     private let searchBar: UISearchBar = {
@@ -32,7 +38,7 @@ final class RMSearchInputView: UIView {
         super.init(frame: .zero)
         
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .systemPink
+        backgroundColor = .systemBackground
         
         addSubview(searchBar)
         addConstraints()
@@ -48,21 +54,66 @@ final class RMSearchInputView: UIView {
         viewModel = model
     }
     
+    func showKeyboard() {
+        searchBar.becomeFirstResponder()
+    }
+    
     // MARK: - Private Methods
     private func createOptionSelectionViews(options: [RMSearchInputViewViewModel.DynamicOption]) {
-        for option in options {
-            // TODO:
-            print(option.rawValue)
+        let stackView = createStackView()
+        for index in 0..<options.count {
+            let option = options[index]
+            let button = createButton(with: option, tag: index)
+            stackView.addArrangedSubview(button)
         }
+    }
+    
+    private func createStackView() -> UIStackView {
+        let stackView = UIStackView(frame: .zero)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .center
+        stackView.spacing = 6
+        
+        addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 6),
+            stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -6),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
+        return stackView
+    }
+    
+    private func createButton(with option: RMSearchInputViewViewModel.DynamicOption, tag: Int) -> UIButton {
+        let button = UIButton(frame: .zero)
+        button.setAttributedTitle(NSAttributedString(string: option.rawValue,
+                                                     attributes: [.font: UIFont.systemFont(ofSize: 18, weight: .medium),
+                                                                  .foregroundColor: UIColor.label]), for: .normal)
+        button.backgroundColor = .secondarySystemFill
+        button.tag = tag
+        button.layer.cornerRadius = 6
+        button.addTarget(self, action: #selector(buttonDidTap(_:)), for: .touchUpInside)
+        return button
+    }
+    
+    @objc private func buttonDidTap(_ sender: UIButton) {
+        guard let options = viewModel?.options else {
+            return
+        }
+        let option = options[sender.tag]
+        delegate?.rmSearchInputView(self, didSelectOption: option)
     }
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
-            searchBar.heightAnchor.constraint(equalToConstant: 58),
+            searchBar.heightAnchor.constraint(equalToConstant: 55),
             searchBar.topAnchor.constraint(equalTo: topAnchor),
             searchBar.leftAnchor.constraint(equalTo: leftAnchor),
             searchBar.rightAnchor.constraint(equalTo: rightAnchor)
         ])
     }
-
 }

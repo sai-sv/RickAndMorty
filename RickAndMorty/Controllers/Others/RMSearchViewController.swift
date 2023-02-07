@@ -44,6 +44,8 @@ final class RMSearchViewController: UIViewController {
         
         view.addSubview(searchView)
         addConstraints()
+        
+        searchView.delegate = self        
     }
     
     required init?(coder: NSCoder) {
@@ -58,6 +60,12 @@ final class RMSearchViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         addSearchButton()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        searchView.showKeyboard()
     }
     
     // MARK: - Public Methods
@@ -78,5 +86,13 @@ final class RMSearchViewController: UIViewController {
     
     @objc private func searchDidTap() {
         
+    }
+}
+
+// MARK: - SearchView Delegate
+extension RMSearchViewController: RMSearchViewDelegate {
+    
+    func rmSearchView(_ searchView: RMSearchView, didSelectOption option: RMSearchInputViewViewModel.DynamicOption) {
+        print("Show Option Picker")
     }
 }

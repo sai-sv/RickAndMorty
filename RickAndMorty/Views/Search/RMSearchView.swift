@@ -7,20 +7,24 @@
 
 import UIKit
 
+protocol RMSearchViewDelegate: AnyObject {
+    func rmSearchView(_ searchView: RMSearchView,
+                      didSelectOption option: RMSearchInputViewViewModel.DynamicOption)
+}
+
 final class RMSearchView: UIView {
 
     // MARK: - Public Properties
+    weak var delegate: RMSearchViewDelegate?
     
     // MARK: - Private Properties
-    private let searchInputView: RMSearchInputView
-    private let noResultsView: RMNoSearchResultsView
+    private let searchInputView = RMSearchInputView()
+    private let noResultsView = RMNoSearchResultsView()
     
     private let viewModel: RMSearchViewViewModel
     
     // MARK: - Init
     init(viewModel: RMSearchViewViewModel) {
-        self.searchInputView = RMSearchInputView()        
-        self.noResultsView = RMNoSearchResultsView(viewModel: .init())
         self.viewModel = viewModel
         super.init(frame: .zero)
         
@@ -31,8 +35,7 @@ final class RMSearchView: UIView {
         addSubview(noResultsView)
         addConstraints()
         
-        let searchInputViewViewModel = RMSearchInputViewViewModel(type: viewModel.config.type)
-        searchInputView.configure(with: searchInputViewViewModel)
+        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -40,11 +43,23 @@ final class RMSearchView: UIView {
     }
     
     // MARK: - Public Methods
+    func showKeyboard() {
+        searchInputView.showKeyboard()
+    }
     
     // MARK: - Private Methods
+    private func configure() {
+        let searchInputViewViewModel = RMSearchInputViewViewModel(type: viewModel.config.type)
+        searchInputView.configure(with: searchInputViewViewModel)
+        searchInputView.delegate = self
+        
+        let noSearchResultsViewModel = RMNoSearchResultsViewViewModel()
+        noResultsView.configure(with: noSearchResultsViewModel)
+    }
+    
     private func addConstraints() {
         NSLayoutConstraint.activate([
-            searchInputView.heightAnchor.constraint(equalToConstant: 110),
+            searchInputView.heightAnchor.constraint(equalToConstant: viewModel.config.type == .episode ? 55 : 110),
             searchInputView.topAnchor.constraint(equalTo: topAnchor),
             searchInputView.leftAnchor.constraint(equalTo: leftAnchor),
             searchInputView.rightAnchor.constraint(equalTo: rightAnchor),
@@ -71,5 +86,13 @@ extension RMSearchView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+    }
+}
+
+// MARK: - SearchInputView Delegate
+extension RMSearchView: RMSearchInputViewDelegate {
+    
+    func rmSearchInputView(_ searchInputView: RMSearchInputView, didSelectOption option: RMSearchInputViewViewModel.DynamicOption) {
+        delegate?.rmSearchView(self, didSelectOption: option)
     }
 }
