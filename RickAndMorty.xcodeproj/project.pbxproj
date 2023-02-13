@@ -68,6 +68,7 @@
 		3B7B471F29917AA4009FA5DB /* RMNoSearchResultsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7B471E29917AA4009FA5DB /* RMNoSearchResultsViewViewModel.swift */; };
 		3B7B472129917ABD009FA5DB /* RMSearchInputViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7B472029917ABD009FA5DB /* RMSearchInputViewViewModel.swift */; };
 		3B81157E2978691B00DE6725 /* RMImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B81157D2978691B00DE6725 /* RMImageLoader.swift */; };
+		3B952A57299AA224008E7399 /* RMSearchOptionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B952A56299AA224008E7399 /* RMSearchOptionPickerViewController.swift */; };
 		3B9F3BCA2989922D000A1125 /* RMEpisodeInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9F3BC92989922D000A1125 /* RMEpisodeInfoCollectionViewCell.swift */; };
 		3B9F3BCD2989926F000A1125 /* RMEpisodeInfoCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9F3BCC2989926F000A1125 /* RMEpisodeInfoCollectionViewCellViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -136,6 +137,7 @@
 		3B7B471E29917AA4009FA5DB /* RMNoSearchResultsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMNoSearchResultsViewViewModel.swift; sourceTree = "<group>"; };
 		3B7B472029917ABD009FA5DB /* RMSearchInputViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSearchInputViewViewModel.swift; sourceTree = "<group>"; };
 		3B81157D2978691B00DE6725 /* RMImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMImageLoader.swift; sourceTree = "<group>"; };
+		3B952A56299AA224008E7399 /* RMSearchOptionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSearchOptionPickerViewController.swift; sourceTree = "<group>"; };
 		3B9F3BC92989922D000A1125 /* RMEpisodeInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B9F3BCC2989926F000A1125 /* RMEpisodeInfoCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeInfoCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -342,10 +344,10 @@
 		3B2ACF1229735D750091D733 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				3B952A55299AA205008E7399 /* Search */,
 				3B2ACF1329735D9E0091D733 /* RMCharacterDetailViewController.swift */,
 				3B026C3B298E96C200404028 /* RMLocationDetailViewController.swift */,
 				3B540F9B2984383B003A9390 /* RMEpisodeDetailViewController.swift */,
-				3B3526312986E7AB00C4774B /* RMSearchViewController.swift */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -434,6 +436,15 @@
 				3B81157D2978691B00DE6725 /* RMImageLoader.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		3B952A55299AA205008E7399 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				3B3526312986E7AB00C4774B /* RMSearchViewController.swift */,
+				3B952A56299AA224008E7399 /* RMSearchOptionPickerViewController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		3B9F3BC729898DF2000A1125 /* EpisodeDetails */ = {
@@ -556,6 +567,7 @@
 				3B9F3BCD2989926F000A1125 /* RMEpisodeInfoCollectionViewCellViewModel.swift in Sources */,
 				3B2EBA402985191800457822 /* RMAPICacheManager.swift in Sources */,
 				3B64E82F2961DE11009440A0 /* RMCharacterOrigin.swift in Sources */,
+				3B952A57299AA224008E7399 /* RMSearchOptionPickerViewController.swift in Sources */,
 				3B746778298AE51B00EE4467 /* RMSettingsOption.swift in Sources */,
 				3B1BBB1D295E35AA003CBE4A /* RMEpisode.swift in Sources */,
 				3B1BBB03295E3043003CBE4A /* SceneDelegate.swift in Sources */,
