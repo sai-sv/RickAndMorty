@@ -85,7 +85,7 @@ final class RMSearchViewController: UIViewController {
     }
     
     @objc private func searchDidTap() {
-        
+        viewModel.executeSearch()
     }
 }
 
@@ -93,8 +93,10 @@ final class RMSearchViewController: UIViewController {
 extension RMSearchViewController: RMSearchViewDelegate {
     
     func rmSearchView(_ searchView: RMSearchView, didSelectOption option: RMSearchInputViewViewModel.DynamicOption) {
-        let vc = RMSearchOptionPickerViewController(option: option) { choice in
-            print(choice)
+        let vc = RMSearchOptionPickerViewController(option: option) { [weak self] choice in
+            DispatchQueue.main.async {
+                self?.viewModel.set(choice: choice, for: option)
+            }
         }
         vc.sheetPresentationController?.prefersGrabberVisible = true
         vc.sheetPresentationController?.detents = [.medium()]

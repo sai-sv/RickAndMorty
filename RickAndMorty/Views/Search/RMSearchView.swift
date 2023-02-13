@@ -36,6 +36,10 @@ final class RMSearchView: UIView {
         addConstraints()
         
         configure()
+        
+        self.viewModel.registerOptionChangeBlock { [weak self] tuple in
+            self?.searchInputView.update(option: tuple.option, choice: tuple.choice)
+        }
     }
     
     required init?(coder: NSCoder) {

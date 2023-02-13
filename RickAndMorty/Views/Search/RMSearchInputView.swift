@@ -33,6 +33,8 @@ final class RMSearchInputView: UIView {
         }
     }
     
+    private var stackView: UIStackView?
+    
     // MARK: - Init
     init() {
         super.init(frame: .zero)
@@ -58,6 +60,17 @@ final class RMSearchInputView: UIView {
         searchBar.becomeFirstResponder()
     }
     
+    func update(option: RMSearchInputViewViewModel.DynamicOption, choice: String) {
+        guard let buttons = stackView?.arrangedSubviews as? [UIButton],
+              let index = viewModel?.options.firstIndex(of: option) else {
+            return
+        }
+        
+        let button = buttons[index]
+        let buttonTitle = createButtonTitle(with: choice.capitalized, color: UIColor.link)
+        button.setAttributedTitle(buttonTitle, for: .normal)
+    }
+    
     // MARK: - Private Methods
     private func createOptionSelectionViews(options: [RMSearchInputViewViewModel.DynamicOption]) {
         let stackView = createStackView()
@@ -70,6 +83,7 @@ final class RMSearchInputView: UIView {
     
     private func createStackView() -> UIStackView {
         let stackView = UIStackView(frame: .zero)
+        self.stackView = stackView
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -90,14 +104,19 @@ final class RMSearchInputView: UIView {
     
     private func createButton(with option: RMSearchInputViewViewModel.DynamicOption, tag: Int) -> UIButton {
         let button = UIButton(frame: .zero)
-        button.setAttributedTitle(NSAttributedString(string: option.rawValue,
-                                                     attributes: [.font: UIFont.systemFont(ofSize: 18, weight: .medium),
-                                                                  .foregroundColor: UIColor.label]), for: .normal)
+        let buttonTitle = createButtonTitle(with: option.rawValue, color: UIColor.label)
+        button.setAttributedTitle(buttonTitle, for: .normal)
         button.backgroundColor = .secondarySystemFill
         button.tag = tag
         button.layer.cornerRadius = 6
         button.addTarget(self, action: #selector(buttonDidTap(_:)), for: .touchUpInside)
         return button
+    }
+    
+    private func createButtonTitle(with text: String, color: UIColor) -> NSAttributedString {
+        return NSAttributedString(string: text,
+                                  attributes: [.font: UIFont.systemFont(ofSize: 18, weight: .medium),
+                                               .foregroundColor: color])
     }
     
     @objc private func buttonDidTap(_ sender: UIButton) {

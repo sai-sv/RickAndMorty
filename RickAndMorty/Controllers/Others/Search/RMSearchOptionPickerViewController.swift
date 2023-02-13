@@ -19,8 +19,8 @@ class RMSearchOptionPickerViewController: UIViewController {
         return tableView
     }()
     
-    let option: RMSearchInputViewViewModel.DynamicOption
-    let selectionBlock: ((String) -> Void)
+    private let option: RMSearchInputViewViewModel.DynamicOption
+    private let selectionBlock: ((String) -> Void)
     
     // MARK: - Init
     init(option: RMSearchInputViewViewModel.DynamicOption, selectionBlock: @escaping (String) -> Void) {
