@@ -25,6 +25,17 @@ final class RMSearchInputViewViewModel {
                 return ["cluster", "planet", "microverse"]
             }
         }
+        
+        var queryItemName: String {
+            switch self {
+            case .gender:
+                return "gender"
+            case .status:
+                return "status"
+            case .locationType:
+                return "type"
+            }
+        }
     }
     
     var options: [DynamicOption] {
