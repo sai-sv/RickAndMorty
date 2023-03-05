@@ -99,4 +99,12 @@ extension RMSearchView: RMSearchInputViewDelegate {
     func rmSearchInputView(_ searchInputView: RMSearchInputView, didSelectOption option: RMSearchInputViewViewModel.DynamicOption) {
         delegate?.rmSearchView(self, didSelectOption: option)
     }
+    
+    func rmSearchInputView(_ searchInputView: RMSearchInputView, textDidChange text: String) {
+        viewModel.set(query: text)
+    }
+    
+    func rmSearchInputViewDidTapSeachButton(_ searchInputView: RMSearchInputView) {
+        viewModel.executeSearch()
+    }
 }
